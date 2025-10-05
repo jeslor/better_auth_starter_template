@@ -1,8 +1,10 @@
 "use client";
 import React from "react";
-import Input from "../Input/Input";
+import Input from "../../components/Input/Input";
 import { useInput } from "@/hooks/inputHook";
 import Link from "next/link";
+import authClient from "@/lib/auth-client";
+
 interface AccountProps {
   page?: "sign-in" | "sign-up";
 }
@@ -12,21 +14,24 @@ const Account = ({ page }: AccountProps) => {
   const password = useInput("");
   const username = useInput("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (page === "sign-in") {
-      // Handle sign-in logic here
-      console.log("Signing in with:", {
+      const { data, error } = await authClient.signIn.email({
         email: email.value,
         password: password.value,
       });
+      if (error) console.error("Error during sign-in:", error);
+      else console.log("Signed in:", data);
     } else {
-      // Handle sign-up logic here
-      console.log("Signing up with:", {
-        username: username.value,
+      const { data, error } = await authClient.signUp.email({
         email: email.value,
         password: password.value,
+        name: username.value,
       });
+      if (error) console.error("Error during sign-up:", error);
+      else console.log("Sign-up successful:", data);
     }
   };
 
