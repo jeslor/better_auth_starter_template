@@ -1,3 +1,4 @@
+import SignOut from "@/components/SignOut/SignOut";
 import React from "react";
 
 const page = () => {
@@ -9,6 +10,7 @@ const page = () => {
       <p className="text-gray-500">
         This is a template for building better authentication flows.
       </p>
+      <SignOut />
     </div>
   );
 };

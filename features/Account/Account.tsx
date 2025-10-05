@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../../components/Input/Input";
 import { useInput } from "@/hooks/inputHook";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import authClient from "@/lib/auth-client";
 
@@ -9,10 +10,12 @@ interface AccountProps {
   page?: "sign-in" | "sign-up";
 }
 
-const Account = ({ page }: AccountProps) => {
+const Account: React.FC<AccountProps> = ({ page }) => {
+  const Router = useRouter();
   const email = useInput("");
   const password = useInput("");
   const username = useInput("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,11 +28,27 @@ const Account = ({ page }: AccountProps) => {
       if (error) console.error("Error during sign-in:", error);
       else console.log("Signed in:", data);
     } else {
-      const { data, error } = await authClient.signUp.email({
-        email: email.value,
-        password: password.value,
-        name: username.value,
-      });
+      const { data, error } = await authClient.signUp.email(
+        {
+          email: email.value,
+          password: password.value,
+          name: username.value,
+        },
+        {
+          onRequest: (ctx) => {
+            setIsLoading(true);
+            //show loading
+          },
+          onSuccess: (ctx) => {
+            Router.push("/");
+            //redirect to the dashboard or sign in page
+          },
+          onError: (ctx) => {
+            // display the error message
+            alert(ctx.error.message);
+          },
+        }
+      );
       if (error) console.error("Error during sign-up:", error);
       else console.log("Sign-up successful:", data);
     }
@@ -68,8 +87,11 @@ const Account = ({ page }: AccountProps) => {
           placeholder="Enter your password"
           {...password}
         />
-        <button className="bg-purple-500/20 hover:bg-purple-800/30 text-white rounded-md p-2 cursor-pointer mt-4">
+        <button className="bg-purple-500/20 hover:bg-purple-800/30 text-white rounded-md p-2 cursor-pointer mt-4 flex items-center justify-center">
           {page === "sign-in" ? "Sign In" : "Sign Up"}
+          {isLoading && (
+            <span className="ml-2 h-[20px] w-[20px] animate-spin rounded-full border-2 border-purple-500 border-t-transparent"></span>
+          )}
         </button>
       </form>
       <div className="mt-4 text-sm text-white/50 text-center">
