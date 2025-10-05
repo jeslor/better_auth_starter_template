@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Better Auth Demo
 
-## Getting Started
+A demonstration of a modern, secure, and user-friendly authentication system.
 
-First, run the development server:
+## 🚀 Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This repository contains a full-stack demo application showcasing **Better Auth** – a robust authentication solution designed to provide a superior experience for both developers and end-users.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Better Auth** includes features such as:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Secure password hashing (e.g., using Argon2 or bcrypt)
+- Two-Factor Authentication (2FA) support
+- Passwordless login (e.g., magic links)
+- Social login integration (e.g., Google, GitHub)
+- Refresh token rotation and secure cookie handling
+- Role-Based Access Control (RBAC) implementation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 💻 Technologies Used
 
-## Learn More
+- **Frontend:** [React / Vue / Angular / etc.]
+- **Backend:** [Node.js (Express) / Python (Django/Flask) / Go / etc.]
+- **Database:** [PostgreSQL / MongoDB / SQLite]
+- **Auth Library/Framework:** [Name of the specific library/framework you are using, e.g., Passport.js, NextAuth.js, your custom implementation]
 
-To learn more about Next.js, take a look at the following resources:
+## ✨ Features Demonstrated
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Feature                     | Description                                                    | Status         |
+| :-------------------------- | :------------------------------------------------------------- | :------------- |
+| **User Registration**       | Sign up with strong password requirements.                     | ✅ Complete    |
+| **Secure Login**            | Standard login with secure session management.                 | ✅ Complete    |
+| **2FA Setup**               | Users can enable and use Time-based One-Time Passwords (TOTP). | ⏳ In Progress |
+| **Password Reset**          | Secure process via email verification.                         | ✅ Complete    |
+| **Protected Route**         | A sample route accessible only to authenticated users.         | ✅ Complete    |
+| **User Profile Management** | Updating name/email after authentication.                      | ✅ Complete    |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠️ Getting Started
 
-## Deploy on Vercel
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Prerequisites
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+You will need the following installed
