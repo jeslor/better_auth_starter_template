@@ -25,6 +25,7 @@ const Input = ({
         {label}
       </label>
       <input
+        id={name}
         type={type}
         name={name}
         // placeholder={placeholder}

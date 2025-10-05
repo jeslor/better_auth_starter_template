@@ -1,4 +1,4 @@
-# Better Auth Demo
+# Better Auth Start template
 
 A demonstration of a modern, secure, and user-friendly authentication system.
 
