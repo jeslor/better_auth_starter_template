@@ -21,10 +21,26 @@ const Account: React.FC<AccountProps> = ({ page }) => {
     e.preventDefault();
 
     if (page === "sign-in") {
-      const { data, error } = await authClient.signIn.email({
-        email: email.value,
-        password: password.value,
-      });
+      const { data, error } = await authClient.signIn.email(
+        {
+          email: email.value,
+          password: password.value,
+        },
+        {
+          onRequest: (ctx) => {
+            setIsLoading(true);
+            //show loading
+          },
+          onSuccess: (ctx) => {
+            Router.push("/");
+            //redirect to the dashboard or sign in page
+          },
+          onError: (ctx) => {
+            // display the error message
+            alert(ctx.error.message);
+          },
+        }
+      );
       if (error) console.error("Error during sign-in:", error);
       else console.log("Signed in:", data);
     } else {
