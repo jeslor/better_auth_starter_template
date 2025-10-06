@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { auth } from "@/lib/auth"; // path to your Better Auth server instance
-import { headers } from "next/headers";
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
