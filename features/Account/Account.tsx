@@ -20,53 +20,59 @@ const Account: React.FC<AccountProps> = ({ page }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (page === "sign-in") {
-      const { data, error } = await authClient.signIn.email(
-        {
-          email: email.value,
-          password: password.value,
-        },
-        {
-          onRequest: (ctx) => {
-            setIsLoading(true);
-            //show loading
+    try {
+      if (page === "sign-in") {
+        const { data, error } = await authClient.signIn.email(
+          {
+            email: email.value,
+            password: password.value,
           },
-          onSuccess: (ctx) => {
-            Router.push("/");
-            //redirect to the dashboard or sign in page
+          {
+            onRequest: (ctx) => {
+              setIsLoading(true);
+              //show loading
+            },
+            onSuccess: (ctx) => {
+              Router.push("/");
+              //redirect to the dashboard or sign in page
+            },
+            onError: (ctx) => {
+              // display the error message
+              alert(ctx.error.message);
+            },
+          }
+        );
+        if (error) console.error("Error during sign-in:", error);
+        else console.log("Signed in:", data);
+      } else {
+        const { data, error } = await authClient.signUp.email(
+          {
+            email: email.value,
+            password: password.value,
+            name: username.value,
           },
-          onError: (ctx) => {
-            // display the error message
-            alert(ctx.error.message);
-          },
-        }
-      );
-      if (error) console.error("Error during sign-in:", error);
-      else console.log("Signed in:", data);
-    } else {
-      const { data, error } = await authClient.signUp.email(
-        {
-          email: email.value,
-          password: password.value,
-          name: username.value,
-        },
-        {
-          onRequest: (ctx) => {
-            setIsLoading(true);
-            //show loading
-          },
-          onSuccess: (ctx) => {
-            Router.push("/");
-            //redirect to the dashboard or sign in page
-          },
-          onError: (ctx) => {
-            // display the error message
-            alert(ctx.error.message);
-          },
-        }
-      );
-      if (error) console.error("Error during sign-up:", error);
-      else console.log("Sign-up successful:", data);
+          {
+            onRequest: (ctx) => {
+              setIsLoading(true);
+              //show loading
+            },
+            onSuccess: (ctx) => {
+              Router.push("/");
+              //redirect to the dashboard or sign in page
+            },
+            onError: (ctx) => {
+              // display the error message
+              alert(ctx.error.message);
+            },
+          }
+        );
+        if (error) console.error("Error during sign-up:", error);
+        else console.log("Sign-up successful:", data);
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
